@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <script src="echarts.common.min.js"></script>
+</head>
+<body>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="echarts.min.js"></script>
+    <style>
+        div{
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 600px;height:400px;"></div>
+
+<script>
+    //初始化echarts实例
+    var myChart = echarts.init(document.getElementById('main'));
+
+    //数据部分
+    var data = [
+        [[5,'10','男'], [8,'11','男'],
+            [10,'12','男'], [7,'13','男'],
+            [12,'14','男'], [17,'15','男'],
+            [20,'16','男'], [23,'17','男'],
+            [16,'18','男'], [18,'19','男'],
+            [23,'20','男'], [19,'21','男'],
+            [15,'22','男'],[20,'23','男'],
+            [22,'24','男'],[26,'25','男'],
+            [18,'26','男'],[17,'27','男'],
+            [18,'28','男']],
+        [[23,'10','女'],[19,'11','女'],
+            [27,'12','女'],[28,'13','女'],
+            [29,'14','女'],[19,'15','女'],
+            [22,'16','女'],[24,'17','女'],
+            [27,'18','女'],[15,'19','女'],
+            [19,'20','女'],[16,'21','女'],
+            [20,'22','女'],[29,'23','女'],
+            [28,'24','女'],[27,'25','女'],
+            [26,'26','女'],[24,'27','女'],
+            [22,'28','女']]
+    ];
+
+    option = {
+        //表的标题
+        title: {
+            text: '男女的情绪值和年龄的关系'
+        },
+        //图例组件
+        legend: {
+            right: 10,//容器组件距右侧距离
+            data: ['男', '女']//图例的数据数组
+        },
+        //直角坐标系 grid 中的 x 轴 y 轴
+        xAxis: {
+            //坐标轴在 grid 区域中的分隔线。
+            splitLine: {
+                lineStyle: {
+                    type: 'dashed'//分割线类型
+                }
+            }
+        },
+        yAxis: {
+            splitLine: {
+                lineStyle: {
+                    type: 'dashed'
+                }
+            },
+            scale: true//设置成 true 后坐标刻度不会强制包含零刻度
+        },
+
+        //配置数据 里面两个对象 对应 男 年和 女
+        series: [{
+            name: '男',
+            data: data[0],
+            type: 'scatter',//散点图
+            symbolSize: function (data) {
+                return data[0];//标记的大小
+            },
+//            设置获得焦点需要显示的文字
+            label: {
+                emphasis: {
+                    show: true,
+                    formatter: function (param) {
+                        return param.data[1];//数据
+                    },
+                    position: 'inside',//在上面
+                    textStyle: 'italic'
+                }
+            },
+            //设置图形颜色
+            itemStyle: {
+                normal: {
+                    shadowBlur: 10,//阴影大小
+                    shadowColor: 'rgba(120, 36, 50, 0.5)',
+                    shadowOffsetY: 5,//阴影在 Y 轴上的偏移
+                    color: new echarts.graphic.RadialGradient(0.3, 0.3, 1, [{
+                        offset: 0,
+                        color: 'rgb(251, 118, 123)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(204, 46, 72)'
+                    }])
+                }
+            }
+        }, {
+            name: '女',
+            data: data[1],
+            type: 'scatter',
+            symbolSize: function (data) {
+                return data[0];
+            },
+            label: {
+                emphasis: {
+                    show: true,
+                    formatter: function (param) {
+                        return param.data[1];
+                    },
+                    position: 'inside',
+                    textStyle: 'italic'
+                }
+            },
+            itemStyle: {
+                normal: {
+                    shadowBlur: 10,
+                    shadowColor: 'rgba(25, 100, 150, 0.5)',
+                    shadowOffsetY: 5,
+                    color: new echarts.graphic.RadialGradient(0.2, 0.3, 0.7, [{
+                        offset: 0,
+                        color: 'rgb(129, 227, 238)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(25, 183, 207)'
+                    }])
+                }
+            }
+        }]
+    };
+
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
+</script>
+</body>
+</html>
+</body>
+</html>
